@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    {ms:include filename=head-file.htm/}
+    <link rel="stylesheet" type="text/css" href="http://cdn.mingsoft.net/plugins/bootstrap/3.3.5/css/bootstrap.min.css">
+    <script type="text/javascript" src="http://cdn.mingsoft.net/plugins/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <body>
+        {ms:include filename=head.htm/}
+        <div id="indexVue">
+            <div class="ms-banner">
+                <div data-am-widget="slider" class="am-slider am-slider-a1" data-am-slider='{&quot;directionNav&quot;:false}'>
+                    <ul class="am-slides">
+                        <template v-for="banner in bannerList">
+                            <li>
+                                <img :src="'{ms:globalskin.url/}/images/'+banner+'.png'">
+                            </li>
+                        </template>
+                    </ul>
+                </div>
+            </div>
+            <div class="ms-index-content">
+             <div class="ms-news">
+                    <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+                        <div class="am-list-news-hd am-cf ms-news-title">
+                            <!--带更多链接-->
+                            <a href="{ms:global.url/}/160/index.html" class="">
+                                <h2 class="ms-news-title-h2">艺术鉴赏</h2>
+                                <span class="am-list-news-more am-fr ms-news-more">MORE &raquo;</span>
+                            </a>
+                        </div>
+                        <div class="am-list-news-bd ms-product-news-list">
+                            <ul class="am-list">
+                                {ms:arclist typeid=160 size=6}
+                                <li class="am-g am-list-item-dated ms-product-news-list-li">
+                                    <a href="[field.link/]" class="am-list-item-hd ">[field.title/]</a>
+                                    <span class="am-list-date">[field.date fmt=yyyy-MM-dd/]</span>
+                                </li>
+                                {/ms:arclist}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </div>
+        {ms:include filename=footer.htm/}
+    </body>
+    <script>
+        var index = new Vue({
+            el: "#indexVue",
+            data: {
+                bannerList: ['01', '02', '03'],
+                modelList: [], //模板列表
+                pulgList: [], //插件列表
+                loading: false, //加载状态
+            },
+            methods: {
+                //切换tab
+                tabShow: function(type) {
+                    event.preventDefault();
+                    $(".tab-pane").removeClass("active");
+                    $(".ms-active").removeClass("active");
+                    $("#ms-" + type).addClass("active");
+                    $("#" + type).addClass("active");
+                },
+                //加载列表
+                query: function(data, type) {
+                    var target = this;
+                    $.ajax({
+                        type: "POST",
+                        data: data,
+                        url: "http://mstore.mingsoft.net//mstore/list.do", //
+                        success: function(msg) {
+                            if(type == 'model') {
+                                target.modelList = msg.list;
+                            } else {
+                                target.pulgList = msg.list;
+                                target.loading = true;
+                            }
+                        }
+                    })
+                },
+            },
+            mounted: function() {
+                var data = "upgraderVersionType=2&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=4&pageNo=1";
+                this.query(data, 'model');
+                var data = "upgraderVersionType=1&upgraderVersionIndustry=0&orderBy=uv_id&pageSize=4&pageNo=1";
+                this.query(data, 'pulg');
+            }
+        })
+    </script>
+</html>

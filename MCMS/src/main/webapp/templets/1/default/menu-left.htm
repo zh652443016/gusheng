@@ -1,0 +1,35 @@
+<div class="ms-content-left">
+    <div class="ms-content-left-title">走进云伽音艺术课堂</div>
+    <ul class="ms-content-left-ul">
+       	<a target="_blank" href='{ms:global.url/}/153/155/index.html'>
+       		<li>资讯<span class="ms-content-left-li-more">></span></li>
+       	</a>
+        <a target="_blank" href='{ms:global.url/}/153/154/index.html'>
+        	<li>艺术在线<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href='{ms:global.url/}/93/94/index.html'>
+        	<li>在线课程<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href='{ms:global.url/}/93/95/index.html'>
+        	<li>教学亮点<span class="ms-content-left-li-more">></span></li>
+        </a>
+        <a target="_blank" href='{ms:global.url/}/19/159/index.html'>
+        	<li>联系我们<span class="ms-content-left-li-more">></span></li>
+        </a>
+    </ul>
+</div>
+<script>
+$(function(){
+    var r=location.href;
+      if(r.match("53")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(0).addClass("ms-content-left-li-first");
+    }else if(r.match("19")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(4).addClass("ms-content-left-li-first");
+    }else if(r.match("59")){
+      $(".ms-content-left-ul a").removeClass("ms-content-left-li-first");
+      $(".ms-content-left-ul a").eq(1).addClass("ms-content-left-li-first");
+    }
+  })
+</script>
